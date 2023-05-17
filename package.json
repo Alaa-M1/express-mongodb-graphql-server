@@ -1,0 +1,31 @@
+{
+  "name": "express-mongodb-graphql-server",
+  "version": "1.0.0",
+  "description": "Express Server with GraphQL and MongoDB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "mongo-server": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alaa-M1/express-mongodb-graphql-server.git"
+  },
+  "author": "Alaa Mohammad",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alaa-M1/express-mongodb-graphql-server/issues"
+  },
+  "homepage": "https://github.com/Alaa-M1/express-mongodb-graphql-server#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "graphql": "^16.6.0",
+    "graphql-http": "^1.18.0",
+    "lodash": "^4.17.21",
+    "mongoose": "^7.1.1",
+    "nodemon": "^2.0.22"
+  }
+}
