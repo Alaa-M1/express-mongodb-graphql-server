@@ -1,10 +1,14 @@
 const graphql = require("graphql");
 const { GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLID } = graphql;
 const mongoose = require("mongoose");
+
 const Department = mongoose.model("department");
 const Employee = mongoose.model("employee");
+
 const DepartmentType = require("./department_type");
 const EmployeeType = require("./employee_type");
+const UserType = require("./user_type");
+const AuthServices = require("../services/auth");
 
 const mutation = new GraphQLObjectType({
   name: "Mutation",
@@ -93,6 +97,46 @@ const mutation = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(obj, { id }) {
         return Department.findOneAndRemove(id);
+      },
+    },
+    signup: {
+      type: UserType,
+      args: {
+        email: {
+          type: GraphQLString,
+        },
+        password: {
+          type: GraphQLString,
+        },
+      },
+      resolve(obj, { email, password }, req) {
+        return AuthServices.signup({ email, password, req });
+      },
+    },
+    login: {
+      type: UserType,
+      args: {
+        email: {
+          type: GraphQLString,
+        },
+        password: {
+          type: GraphQLString,
+        },
+      },
+      resolve(obj, { email, password }, req) {
+        return AuthServices.login({ email, password, req });
+      },
+    },
+    logout: {
+      type: UserType,
+      resolve(obj, args, req) {
+        const { user } = req.raw;
+        req.raw.logout(function (err) {
+          if (err) {
+            throw new Error(err);
+          }
+        });
+        return user;
       },
     },
   },
