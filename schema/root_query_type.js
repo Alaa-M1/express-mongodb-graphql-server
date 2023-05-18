@@ -4,11 +4,11 @@ const { GraphQLObjectType, GraphQLList, GraphQLID, GraphQLNonNull } = graphql;
 
 const DepartmentType = require('./department_type');
 const EmployeeType = require('./employee_type');
+const UserType = require('./user_type');
 
 ////////////////////
 const Employee = mongoose.model('employee');
 const Department = mongoose.model('department');
-
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: () => ({
@@ -28,8 +28,14 @@ const RootQuery = new GraphQLObjectType({
     employee: {
       type: EmployeeType,
       args: { id: { type: new GraphQLNonNull(GraphQLID) } },
-      resolve(parnetValue, { id }) {
+      resolve(obj, { id }) {
         return Employee.findById(id);
+      }
+    },
+    user: {
+      type: UserType,
+      resolve(obj, arg,req) {
+        return req.raw.user;
       }
     }
   })

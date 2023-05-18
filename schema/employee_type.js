@@ -32,7 +32,6 @@ const EmployeeType = new GraphQLObjectType({
       resolve(obj) {
         return Employee.findById(obj).populate('department')
           .then(employee => {
-            console.log(employee)
             return employee.department
           });
       }
